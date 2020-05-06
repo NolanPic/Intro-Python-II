@@ -91,8 +91,17 @@ def move_direction(direction):
         print('You cannot go that way.')
 
 while True:
+    # print room info
     print(f'*** {player.current_room.name} ***')
     print(player.current_room.description)
+    
+    # print room items
+    if len(player.current_room.items) > 0:
+        print('\nYou see the following items:')
+        for item in player.current_room.items:
+            print(f'* {item.name}')
+        print('\n')
+
     cmd = input("Command: ")
     if cmd == 'q':
         break
