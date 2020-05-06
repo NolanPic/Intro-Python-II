@@ -1,5 +1,6 @@
 from room import Room
 from player import Player
+from item import Item
 
 # Declare all the rooms
 
@@ -33,6 +34,14 @@ room['overlook'].s_to = room['foyer']
 room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
+
+# add items to rooms
+room['overlook'].add_item(Item('Key', """A key, begrimed and dull--except for 
+a small glint at its bit."""))
+room['treasure'].add_item(Item('Parchment', """A parchment with a list of tresure, presumabely
+taken from this room. Under this, an
+additional note:
+'Next stop: an unnamed island to the west.'"""))
 
 #
 # Main
