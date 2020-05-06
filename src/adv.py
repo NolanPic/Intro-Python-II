@@ -55,27 +55,35 @@ player = Player(room['outside'])
 
 def move_direction(direction):
     dir_exists = False
+    dir = None
     if direction == 'n':
         if player.current_room.n_to is not None:
             player.current_room = player.current_room.n_to
             dir_exists = True
+            dir = 'north' 
     if direction == 's':
         if player.current_room.s_to is not None:
             player.current_room = player.current_room.s_to
             dir_exists = True
+            dir = 'south'
     if direction == 'e':
         if player.current_room.e_to is not None:
             player.current_room = player.current_room.e_to
             dir_exists = True
+            dir = 'east'
     if direction == 'w':
         if player.current_room.w_to is not None:
             player.current_room = player.current_room.w_to
             dir_exists = True
-    if not dir_exists:
+            dir = 'west'
+    if dir_exists:
+        print(f'You move {dir}')
+    else:
         print('You cannot go that way.')
 
 while True:
-    print(f"You are here: {player.current_room.name}")
+    print(f'*** {player.current_room.name} ***')
+    print(player.current_room.description)
     cmd = input("Command: ")
     if cmd == 'q':
         break
