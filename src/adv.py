@@ -53,8 +53,31 @@ player = Player(room['outside'])
 #
 # If the user enters "q", quit the game.
 
+def move_direction(direction):
+    dir_exists = False
+    if direction == 'n':
+        if player.current_room.n_to is not None:
+            player.current_room = player.current_room.n_to
+            dir_exists = True
+    if direction == 's':
+        if player.current_room.s_to is not None:
+            player.current_room = player.current_room.s_to
+            dir_exists = True
+    if direction == 'e':
+        if player.current_room.e_to is not None:
+            player.current_room = player.current_room.e_to
+            dir_exists = True
+    if direction == 'w':
+        if player.current_room.w_to is not None:
+            player.current_room = player.current_room.w_to
+            dir_exists = True
+    if not dir_exists:
+        print('You cannot go that way.')
+
 while True:
     print(f"You are here: {player.current_room.name}")
     cmd = input("Command: ")
     if cmd == 'q':
         break
+    elif cmd == 'n' or cmd == 's' or cmd == 'e' or cmd == 'w':
+        move_direction(cmd)
