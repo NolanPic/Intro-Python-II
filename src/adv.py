@@ -81,3 +81,5 @@ while True:
         break
     elif cmd == 'n' or cmd == 's' or cmd == 'e' or cmd == 'w':
         move_direction(cmd)
+    else:
+        print('Invalid command.')
