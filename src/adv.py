@@ -86,26 +86,35 @@ def move_direction(direction):
             dir_exists = True
             dir = 'west'
     if dir_exists:
-        print(f'You move {dir}')
+        print(f'You move {dir}\n')
     else:
-        print('You cannot go that way.')
+        print('You cannot go that way.\n')
 
 while True:
     # print room info
     print(f'*** {player.current_room.name} ***')
-    print(player.current_room.description)
+    print(f'{player.current_room.description}\n')
     
     # print room items
     if len(player.current_room.items) > 0:
-        print('\nYou see the following items:')
+        print('You see the following items:')
+
+        # print out all the items that are in this room
         for item in player.current_room.items:
             print(f'* {item.name}')
         print('\n')
 
+    # prompt the user for input
     cmd = input("Command: ")
+
+    # quit the game
     if cmd == 'q':
         break
+
+    # player is moving in a direction
     elif cmd == 'n' or cmd == 's' or cmd == 'e' or cmd == 'w':
         move_direction(cmd)
+
+    # player did not enter a valid command
     else:
-        print('Invalid command.')
+        print('Invalid command.\n')
