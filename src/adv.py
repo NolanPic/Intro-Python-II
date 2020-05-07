@@ -89,6 +89,13 @@ def get_item_in_room_by_name(name):
             return item
     return None
 
+# gets an item in the user's inventory by its string name
+def get_item_in_inventory_by_name(name):
+    for item in player.items:
+        if item.name == name:
+            return item
+    return None
+
 # puts an item in the player's inventory
 def take_item(name):
     item = get_item_in_room_by_name(name)
@@ -97,7 +104,7 @@ def take_item(name):
 # removes an item from the player's inventory
 # and adds it to the current room
 def drop_item(name):
-    item = get_item_in_room_by_name(name)
+    item = get_item_in_inventory_by_name(name)
     player.drop_item(item)
 
 def open_inventory():
