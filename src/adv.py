@@ -109,12 +109,30 @@ def open_inventory():
             print(f'* {item.name}')
             print(f'{item.description}\n')
 
+def help():
+    print("""
+    Available commands:
+    * n - move north
+    * s - move south
+    * e - move east
+    * w - move west
+    * take [item] - take an item
+    * drop [item] - drop an item
+    * i - open inventory
+    * q - quit the game
+    """)
+
+def announce_room():
+    print(f'*** {player.current_room.name} ***')
+    print(f'{player.current_room.description}\n')
+
 exit = False
+is_start = True # true when the user has 
 
 while not exit:
     # print room info
-    print(f'*** {player.current_room.name} ***')
-    print(f'{player.current_room.description}\n')
+    if is_start:
+        announce_room()
     
     # print room items
     if len(player.current_room.items) > 0:
@@ -127,15 +145,21 @@ while not exit:
 
     # prompt the user for input
     cmd = input("What is your next step? ")
+    is_start = False
     cmdWithArgs = cmd.split(' ')
 
+    # display help
+    if cmd == 'help':
+        help()
+
     # quit the game
-    if cmd in ['q', 'quit', 'exit']:
+    elif cmd in ['q', 'quit', 'exit']:
         exit = True
 
     # player is moving in a direction
     elif cmd in ['n', 's', 'e', 'w']:
         move(cmd)
+        announce_room()
 
     # player is viewing inventory
     elif cmd in ['i', 'inventory']:
