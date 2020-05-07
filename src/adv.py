@@ -96,20 +96,9 @@ def get_item_in_inventory_by_name(name):
             return item
     return None
 
-# puts an item in the player's inventory
-def take_item(name):
-    item = get_item_in_room_by_name(name)
-    player.take_item(item)
-
-# removes an item from the player's inventory
-# and adds it to the current room
-def drop_item(name):
-    item = get_item_in_inventory_by_name(name)
-    player.drop_item(item)
-
 def open_inventory():
     if len(player.items) == 0:
-            print('Inventory is empty\n')
+        print('Inventory is empty\n')
     else:
         print('Inventory:\n')
         for item in player.items:
@@ -176,10 +165,12 @@ while not exit:
         # player has a command with more than one word
         if cmdWithArgs[0] == 'take':
             # user is picking up an item
-            take_item(cmdWithArgs[1])
+            item = get_item_in_room_by_name(cmdWithArgs[1])
+            player.take_item(item)
         if cmdWithArgs[0] == 'drop':
             # user is dropping an item
-            drop_item(cmdWithArgs[1])
+            item = get_item_in_inventory_by_name(cmdWithArgs[1])
+            player.drop_item(item)
 
     # player did not enter a valid command
     else:
