@@ -108,7 +108,9 @@ def drop_item(name):
     item = get_item_in_room_by_name(name)
     player.drop_item(item)
 
-while True:
+exit = False
+
+while not exit:
     # print room info
     print(f'*** {player.current_room.name} ***')
     print(f'{player.current_room.description}\n')
@@ -123,15 +125,15 @@ while True:
         print('\n')
 
     # prompt the user for input
-    cmd = input("Command: ")
+    cmd = input("What is your next step? ")
     cmdWithArgs = cmd.split(' ')
 
     # quit the game
-    if cmd == 'q':
-        break
+    if cmd in ['q', 'quit', 'exit']:
+        exit = True
 
     # player is moving in a direction
-    elif cmd == 'n' or cmd == 's' or cmd == 'e' or cmd == 'w':
+    elif cmd in ['n', 's', 'e', 'w']:
         move_direction(cmd)
 
     # player is viewing inventory
