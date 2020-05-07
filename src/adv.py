@@ -62,31 +62,23 @@ player = Player(room['outside'])
 #
 # If the user enters "q", quit the game.
 
-def move_direction(direction):
-    dir_exists = False
-    dir = None
-    if direction == 'n':
-        if player.current_room.n_to is not None:
-            player.current_room = player.current_room.n_to
-            dir_exists = True
-            dir = 'north' 
-    if direction == 's':
-        if player.current_room.s_to is not None:
-            player.current_room = player.current_room.s_to
-            dir_exists = True
-            dir = 'south'
-    if direction == 'e':
-        if player.current_room.e_to is not None:
-            player.current_room = player.current_room.e_to
-            dir_exists = True
-            dir = 'east'
-    if direction == 'w':
-        if player.current_room.w_to is not None:
-            player.current_room = player.current_room.w_to
-            dir_exists = True
-            dir = 'west'
-    if dir_exists:
-        print(f'You move {dir}\n')
+def move(direction):
+    directions = ['north', 'south', 'east', 'west']
+
+    # gets the print-friendly direction based on
+    # the user's input
+    print_dir = [d for d in directions if d[0] == direction][0]
+
+    # find the next room based on the direction attr
+    dir_attr = f'{direction}_to'
+    next_room = getattr(player.current_room, dir_attr)
+
+    # you can go in this direction
+    if next_room is not None:
+        player.current_room = next_room
+        print(f'You move {print_dir}\n')
+
+    # you cannot go in this direction
     else:
         print('You cannot go that way.\n')
 
@@ -107,6 +99,15 @@ def take_item(name):
 def drop_item(name):
     item = get_item_in_room_by_name(name)
     player.drop_item(item)
+
+def open_inventory():
+    if len(player.items) == 0:
+            print('Inventory is empty\n')
+    else:
+        print('Inventory:\n')
+        for item in player.items:
+            print(f'* {item.name}')
+            print(f'{item.description}\n')
 
 exit = False
 
@@ -134,17 +135,11 @@ while not exit:
 
     # player is moving in a direction
     elif cmd in ['n', 's', 'e', 'w']:
-        move_direction(cmd)
+        move(cmd)
 
     # player is viewing inventory
-    elif cmd == 'i':
-        if len(player.items) == 0:
-            print('Inventory is empty\n')
-        else:
-            print('Inventory:\n')
-            for item in player.items:
-                print(f'* {item.name}')
-                print(f'{item.description}\n')
+    elif cmd in ['i', 'inventory']:
+        open_inventory()
 
     elif len(cmdWithArgs) > 1:
         # player has a command with more than one word

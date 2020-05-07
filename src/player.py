@@ -9,7 +9,7 @@ class Player:
     def take_item(self, item):
         self.items.append(item)
         self.current_room.remove_item(item)
-        print(f'You pick up {item.name} and inspect it.\n')
+        print(f'You pick up {item.name} and inspect it...\n')
         print(f'{item.description}\n')
     
     def drop_item(self, item):
