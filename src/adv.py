@@ -90,6 +90,24 @@ def move_direction(direction):
     else:
         print('You cannot go that way.\n')
 
+# gets an item in the room by its string name
+def get_item_in_room_by_name(name):
+    for item in player.current_room.items:
+        if item.name == name:
+            return item
+    return None
+
+# puts an item in the player's inventory
+def take_item(name):
+    item = get_item_in_room_by_name(name)
+    player.take_item(item)
+
+# removes an item from the player's inventory
+# and adds it to the current room
+def drop_item(name):
+    item = get_item_in_room_by_name(name)
+    player.drop_item(item)
+
 while True:
     # print room info
     print(f'*** {player.current_room.name} ***')
@@ -106,6 +124,7 @@ while True:
 
     # prompt the user for input
     cmd = input("Command: ")
+    cmdWithArgs = cmd.split(' ')
 
     # quit the game
     if cmd == 'q':
@@ -114,6 +133,25 @@ while True:
     # player is moving in a direction
     elif cmd == 'n' or cmd == 's' or cmd == 'e' or cmd == 'w':
         move_direction(cmd)
+
+    # player is viewing inventory
+    elif cmd == 'i':
+        if len(player.items) == 0:
+            print('Inventory is empty\n')
+        else:
+            print('Inventory:\n')
+            for item in player.items:
+                print(f'* {item.name}')
+                print(f'{item.description}\n')
+
+    elif len(cmdWithArgs) > 1:
+        # player has a command with more than one word
+        if cmdWithArgs[0] == 'take':
+            # user is picking up an item
+            take_item(cmdWithArgs[1])
+        if cmdWithArgs[0] == 'drop':
+            # user is dropping an item
+            drop_item(cmdWithArgs[1])
 
     # player did not enter a valid command
     else:
